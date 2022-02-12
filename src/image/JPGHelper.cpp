@@ -106,7 +106,8 @@ namespace aRibeiro {
             fclose(infile);
             
             if (result != NULL)
-                delete[] result;
+                free_aligned(result);
+                //delete[] result;
             
             return NULL;
         }
@@ -152,7 +153,8 @@ namespace aRibeiro {
         ((j_common_ptr) &cinfo, JPOOL_IMAGE, row_stride, 1);
         
         
-        result = new char[cinfo.output_width * cinfo.output_height * cinfo.output_components];
+        //result = new char[cinfo.output_width * cinfo.output_height * cinfo.output_components];
+        result = (char*)malloc_aligned( cinfo.output_width * cinfo.output_height * cinfo.output_components );
         *w = cinfo.output_width;
         *h = cinfo.output_height;
         *chann = cinfo.output_components;
@@ -250,7 +252,8 @@ namespace aRibeiro {
             //fclose(infile);
             
             if (result != NULL)
-                delete[] result;
+                free_aligned(result);
+                //delete[] result;
             
             return NULL;
         }
@@ -295,7 +298,8 @@ namespace aRibeiro {
         ((j_common_ptr) &cinfo, JPOOL_IMAGE, row_stride, 1);
         
         
-        result = new char[cinfo.output_width * cinfo.output_height * cinfo.output_components];
+        //result = new char[cinfo.output_width * cinfo.output_height * cinfo.output_components];
+        result = (char*)malloc_aligned(cinfo.output_width * cinfo.output_height * cinfo.output_components);
         *w = cinfo.output_width;
         *h = cinfo.output_height;
         *chann = cinfo.output_components;
@@ -354,7 +358,8 @@ namespace aRibeiro {
     void JPGHelper::closeJPG(char *&buff) {
         if (!buff)
             return;
-        delete[]buff;
+        free_aligned(buff);
+        //delete[]buff;
         buff = NULL;
     }
     //----------------------------------------------------------------------------------

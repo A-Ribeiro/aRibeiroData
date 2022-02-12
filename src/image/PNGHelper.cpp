@@ -216,7 +216,8 @@ namespace aRibeiro {
             height,
             channels,
             depth);
-        char* retorno = new char[width*height*channels*(depth / 8)];
+        //char* retorno = new char[width*height*channels*(depth / 8)];
+        char* retorno = (char*)malloc_aligned(width*height*channels*(depth / 8));
         *w = width;
         *h = height;
         *chann = channels;
@@ -317,7 +318,8 @@ namespace aRibeiro {
             height,
             channels,
             depth);
-        char* retorno = new char[width*height*channels*(depth / 8)];
+        //char* retorno = new char[width*height*channels*(depth / 8)];
+        char* retorno = (char*)malloc_aligned(width*height*channels*(depth / 8));
         *w = width;
         *h = height;
         *chann = channels;
@@ -410,16 +412,17 @@ namespace aRibeiro {
         png_destroy_write_struct(&png_ptr, &info_ptr);
         
         *output_size = output.size();
-        char* outputBuffer = new char[output.size()];
+        //char* outputBuffer = new char[output.size()];
+        char* outputBuffer = (char*)malloc_aligned(output.size());
         memcpy(outputBuffer, &output[0], output.size());
 
         return outputBuffer;
     }
     //----------------------------------------------------------------------------------
     void PNGHelper::closePNG(char *&buff) {
-
         if (!buff) return;
-        delete[]buff;
+        free_aligned(buff);
+        //delete[]buff;
         buff = NULL;
     }
     //----------------------------------------------------------------------------------
