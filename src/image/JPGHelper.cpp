@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 #include <string.h>
-#include <libjpeg/jpeglib.h>
+#include <jpeglib.h>
 #include <vector>
 
 #include <setjmp.h>
