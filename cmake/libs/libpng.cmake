@@ -1,10 +1,21 @@
-set( LIB_PNG FromPackage CACHE STRING "Choose the Library Source." )
-set_property(CACHE LIB_PNG PROPERTY STRINGS None FromPackage UsingFindPackage)
+set( LIB_PNG TryFindPackageFirst CACHE STRING "Choose the Library Source." )
+set_property(CACHE LIB_PNG PROPERTY STRINGS None TryFindPackageFirst UsingFindPackage FromSource)
 
-if(LIB_PNG STREQUAL FromPackage)
+if(LIB_PNG STREQUAL TryFindPackageFirst)
+    find_package(PNG QUIET)
+    if (PNG_FOUND)
+        message(STATUS "[LIB_PNG] using system lib.")
+        set(LIB_PNG UsingFindPackage)
+    else()
+        message(STATUS "[LIB_PNG] compiling from source.")
+        set(LIB_PNG FromSource)
+    endif()
+endif()
+
+if(LIB_PNG STREQUAL FromSource)
 
     if (NOT LIBS_REPOSITORY_URL)
-        message(FATAL_ERROR "You need to define the LIBS_REPOSITORY_URL to use the FromPackage option for any lib.")
+        message(FATAL_ERROR "You need to define the LIBS_REPOSITORY_URL to use the FromSource option for any lib.")
     endif()
 
     tool_download_lib_package(${LIBS_REPOSITORY_URL} libpng)
@@ -26,10 +37,10 @@ elseif(LIB_PNG STREQUAL UsingFindPackage)
 
     tool_is_lib(libpng libpng_registered)
     if (NOT ${libpng_registered})    
-        find_package(PNG REQUIRED)
+        find_package(PNG REQUIRED QUIET)
 
-        message("includeDIR: ${PNG_INCLUDE_DIR}")
-        message("Libs: ${PNG_LIBRARIES}")
+        #message("includeDIR: ${PNG_INCLUDE_DIR}")
+        #message("Libs: ${PNG_LIBRARIES}")
 
         add_library(libpng OBJECT ${PNG_LIBRARIES})
         #target_link_libraries(zlib INTERFACE ${ZLIB_LIBRARIES})

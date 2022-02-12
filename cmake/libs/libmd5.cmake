@@ -1,18 +1,16 @@
-set( LIB_MD5 FromPackage CACHE STRING "Choose the Library Source." )
-set_property(CACHE LIB_MD5 PROPERTY STRINGS None FromPackage FromSource)
+set( LIB_MD5 FromSource CACHE STRING "Choose the Library Source." )
+set_property(CACHE LIB_MD5 PROPERTY STRINGS None FromSource)
 
-if(LIB_MD5 STREQUAL FromPackage)
+if(LIB_MD5 STREQUAL FromSource)
+    
+    message(STATUS "[LIB_MD5] compiling from source.")
 
     if (NOT LIBS_REPOSITORY_URL)
-        message(FATAL_ERROR "You need to define the LIBS_REPOSITORY_URL to use the FromPackage option for any lib.")
+        message(FATAL_ERROR "You need to define the LIBS_REPOSITORY_URL to use the FromSource option for any lib.")
     endif()
 
     tool_download_lib_package(${LIBS_REPOSITORY_URL} md5)
     tool_include_lib(md5)
-
-elseif(LIB_MD5 STREQUAL UsingFindPackage)
-
-    message(FATAL_ERROR "Build from source not implemented yet." )
 
 else()
     message( FATAL_ERROR "You need to specify the lib source." )

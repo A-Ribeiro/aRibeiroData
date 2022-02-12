@@ -3,12 +3,12 @@ set_property(CACHE LIB_ARIBEIROWRAPPERS PROPERTY STRINGS None FromGit)
 
 if (LIB_ARIBEIROWRAPPERS STREQUAL FromGit)
 
-    if (GIT_DOWNLOAD_METHOD STREQUAL HTTPS)
+    if (ARIBEIRO_GIT_DOWNLOAD_METHOD STREQUAL HTTPS)
         tool_download_git_package("https://github.com/A-Ribeiro/aRibeiroWrappers.git" aRibeiroWrappers)
-    elseif (GIT_DOWNLOAD_METHOD STREQUAL SSH)
+    elseif (ARIBEIRO_GIT_DOWNLOAD_METHOD STREQUAL SSH)
         tool_download_git_package("git@github.com:A-Ribeiro/aRibeiroWrappers.git" aRibeiroWrappers)
     else()
-        message(FATAL_ERROR "Invalid Git Download Method: ${GIT_DOWNLOAD_METHOD}" )
+        message(FATAL_ERROR "Invalid Git Download Method: ${ARIBEIRO_GIT_DOWNLOAD_METHOD}" )
     endif()
 
     #set(supress_show_info ON)

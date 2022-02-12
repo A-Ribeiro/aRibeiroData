@@ -1,10 +1,21 @@
-set( LIB_ZLIB FromPackage CACHE STRING "Choose the Library Source." )
-set_property(CACHE LIB_ZLIB PROPERTY STRINGS None FromPackage UsingFindPackage)
+set( LIB_ZLIB TryFindPackageFirst CACHE STRING "Choose the Library Source." )
+set_property(CACHE LIB_ZLIB PROPERTY STRINGS None TryFindPackageFirst UsingFindPackage FromSource)
 
-if(LIB_ZLIB STREQUAL FromPackage)
+if(LIB_ZLIB STREQUAL TryFindPackageFirst)
+    find_package(ZLIB QUIET)
+    if (ZLIB_FOUND)
+        message(STATUS "[LIB_ZLIB] using system lib.")
+        set(LIB_ZLIB UsingFindPackage)
+    else()
+        message(STATUS "[LIB_ZLIB] compiling from source.")
+        set(LIB_ZLIB FromSource)
+    endif()
+endif()
+
+if(LIB_ZLIB STREQUAL FromSource)
 
     if (NOT LIBS_REPOSITORY_URL)
-        message(FATAL_ERROR "You need to define the LIBS_REPOSITORY_URL to use the FromPackage option for any lib.")
+        message(FATAL_ERROR "You need to define the LIBS_REPOSITORY_URL to use the FromSource option for any lib.")
     endif()
 
     tool_download_lib_package(${LIBS_REPOSITORY_URL} zlib)
@@ -19,7 +30,7 @@ elseif(LIB_ZLIB STREQUAL UsingFindPackage)
 
     tool_is_lib(zlib zlib_registered)
     if (NOT ${zlib_registered})
-        find_package(ZLIB REQUIRED)
+        find_package(ZLIB REQUIRED QUIET)
 
         add_library(zlib OBJECT ${ZLIB_LIBRARIES})
         #target_link_libraries(zlib INTERFACE ${ZLIB_LIBRARIES})
