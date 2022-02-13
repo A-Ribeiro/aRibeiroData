@@ -82,7 +82,9 @@ set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER "aRibeiro")
 target_compile_definitions(${PROJECT_NAME} PUBLIC ${compile_defs})
 target_compile_options(${PROJECT_NAME} PUBLIC ${compile_opts})
 
-if( NOT MSVC )
+option(ARIBEIRO_SKIP_INSTALL_DATA OFF)
+
+if( NOT MSVC AND NOT ARIBEIRO_SKIP_INSTALL_DATA )
     # Install setup
     install(
         TARGETS ${PROJECT_NAME} 
