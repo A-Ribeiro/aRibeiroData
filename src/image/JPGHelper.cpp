@@ -1,5 +1,7 @@
 #pragma warning(disable:4996)
 
+#include <aRibeiroCore/common.h> // fix basetsd.h 
+
 #include "JPGHelper.h"
 
 #include <stdio.h>
