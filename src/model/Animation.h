@@ -3,7 +3,7 @@
 
 #include <aRibeiroCore/aRibeiroCore.h>
 #include <aRibeiroData/BinaryReader.h>
-#include <aRibeiroData/BinaryWritter.h>
+#include <aRibeiroData/BinaryWriter.h>
 #include <vector>
 #include <map>
 
