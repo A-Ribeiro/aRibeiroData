@@ -2,6 +2,8 @@
 #define model_camera_h_
 
 #include <aRibeiroCore/aRibeiroCore.h>
+#include <aRibeiroData/BinaryReader.h>
+#include <aRibeiroData/BinaryWritter.h>
 #include <vector>
 #include <map>
 

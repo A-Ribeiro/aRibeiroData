@@ -2,6 +2,8 @@
 #define atlas__h__
 
 #include <aRibeiroCore/aRibeiroCore.h>
+#include <aRibeiroData/BinaryReader.h>
+#include <aRibeiroData/BinaryWritter.h>
 #include <vector>
 
 #include "AtlasRect.h"
