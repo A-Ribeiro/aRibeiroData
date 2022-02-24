@@ -59,12 +59,6 @@ git submodule init
 git submodule update
 ```
 
-### c) update only the submodules
-
-```bash
-git submodule update
-```
-
 ## Authors
 
 ***Alessandro Ribeiro da Silva*** obtained his Bachelor's degree in Computer Science from Pontifical Catholic 
