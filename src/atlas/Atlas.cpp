@@ -82,7 +82,7 @@ namespace aRibeiro {
 
         int currY = yspacing / 2;
 
-        for(size_t i=0;i<elements.size();i++){
+        for(int i=0;i<(int)elements.size();i++){
 
             if (!fastMode)
                 currY = yspacing / 2;
@@ -93,7 +93,7 @@ namespace aRibeiro {
             bool foundPlace = false;
             while (!foundPlace) {
                 //each position test overlap with other objects
-                for (size_t j = 0; j < possibleInsertPositions.size(); j++) {
+                for (int j = 0; j < (int)possibleInsertPositions.size(); j++) {
                     AtlasRect &insertPos = possibleInsertPositions[j];
                     element->rect.setXY(insertPos.x, insertPos.y);
                     if (!colideWithAnyObject(element, i) && element->rect.inside(screen, xspacing / 2, yspacing / 2)) {
@@ -241,7 +241,7 @@ namespace aRibeiro {
     }
     
     void Atlas::write(aRibeiro::BinaryWriter *writer)const{
-        writer->writeUInt32(elements.size());
+        writer->writeUInt32((uint32_t)elements.size());
         for(size_t i=0;i<elements.size();i++){
             writer->writeString(elements[i]->name);
             elements[i]->rect.write(writer);

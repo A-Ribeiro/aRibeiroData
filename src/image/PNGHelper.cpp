@@ -47,7 +47,7 @@ namespace aRibeiro {
         if (dataReadInput->readed + (int)length > dataReadInput->size)
             png_error(png_ptr, "Read Error!");
         memcpy(data, &(dataReadInput->buffer[dataReadInput->readed]), length);
-        dataReadInput->readed += length;
+        dataReadInput->readed += (int)length;
     }
 
     //----------------------------------------------------------------------------------
@@ -411,7 +411,7 @@ namespace aRibeiro {
         png_write_end(png_ptr, info_ptr);
         png_destroy_write_struct(&png_ptr, &info_ptr);
         
-        *output_size = output.size();
+        *output_size = (int)output.size();
         //char* outputBuffer = new char[output.size()];
         char* outputBuffer = (char*)malloc_aligned(output.size());
         memcpy(outputBuffer, &output[0], output.size());

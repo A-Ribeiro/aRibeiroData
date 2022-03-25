@@ -33,7 +33,7 @@ namespace aRibeiro {
     void BinaryWriter::close() {
         if (compress) {
             zlibWrapper::ZLIB zlib;
-            zlib.compress(&buffer[0],buffer.size());
+            zlib.compress(&buffer[0],(uint32_t)buffer.size());
             buffer = zlib.zlibOutput;
         }
 
@@ -51,7 +51,7 @@ namespace aRibeiro {
     }
 
     void BinaryWriter::write(void *data, size_t size) {
-        int startWrite = buffer.size();
+        size_t startWrite = buffer.size();
         buffer.resize(startWrite + size);
         memcpy(&buffer[startWrite], data, size);
     }
@@ -119,7 +119,7 @@ namespace aRibeiro {
     void BinaryWriter::writeString(const std::string &s) {
         writeUInt16((uint16_t)s.size());
         if (s.size() > 0) {
-            int startWrite = buffer.size();
+            size_t startWrite = buffer.size();
             buffer.resize(startWrite + s.size());
             memcpy(&buffer[startWrite], s.c_str(), s.size());
         }
@@ -127,42 +127,42 @@ namespace aRibeiro {
 
 
     void BinaryWriter::writeVectorFloat(const std::vector<float> &v){
-        writeUInt32(v.size());
+        writeUInt32((uint32_t)v.size());
         for (size_t i=0;i<v.size();i++){
             writeFloat(v[i]);
         }
     }
 
     void BinaryWriter::writeVectorUInt16(const std::vector<uint16_t> &v) {
-        writeUInt32(v.size());
+        writeUInt32((uint32_t)v.size());
         for (size_t i = 0; i < v.size(); i++) {
             writeUInt16(v[i]);
         }
     }
 
     void BinaryWriter::writeVectorUInt32(const std::vector<uint32_t> &v){
-        writeUInt32(v.size());
+        writeUInt32((uint32_t)v.size());
         for (size_t i=0;i<v.size();i++){
             writeUInt32(v[i]);
         }
     }
 
     void BinaryWriter::writeVectorVec2(const aligned_vector<vec2> &v){
-        writeUInt32(v.size());
+        writeUInt32((uint32_t)v.size());
         for (size_t i=0;i<v.size();i++){
             writeVec2(v[i]);
         }
     }
 
     void BinaryWriter::writeVectorVec3(const aligned_vector<vec3> &v){
-        writeUInt32(v.size());
+        writeUInt32((uint32_t)v.size());
         for (size_t i=0;i<v.size();i++){
             writeVec3(v[i]);
         }
     }
 
     void BinaryWriter::writeVectorVec4(const aligned_vector<vec4> &v){
-        writeUInt32(v.size());
+        writeUInt32((uint32_t)v.size());
         for (size_t i=0;i<v.size();i++){
             writeVec4(v[i]);
         }
@@ -170,7 +170,7 @@ namespace aRibeiro {
 
 
     void BinaryWriter::writeStringMapFloat(const std::map<std::string,float> &v){
-        writeUInt32(v.size());
+        writeUInt32((uint32_t)v.size());
         //typename 
         std::map<std::string, float>::const_iterator it;
         for (it = v.begin(); it != v.end(); it++) {
@@ -180,7 +180,7 @@ namespace aRibeiro {
     }
 
     void BinaryWriter::writeStringMapInt32(const std::map<std::string,int32_t> &v){
-        writeUInt32(v.size());
+        writeUInt32((uint32_t)v.size());
         //typename 
         std::map<std::string, int32_t>::const_iterator it;
         for (it = v.begin(); it != v.end(); it++) {
@@ -190,7 +190,7 @@ namespace aRibeiro {
     }
 
     void BinaryWriter::writeStringMapVec2(const aligned_map<std::string,vec2> &v){
-        writeUInt32(v.size());
+        writeUInt32((uint32_t)v.size());
         
         //typename 
         aligned_map<std::string,vec2>::const_iterator it;
@@ -201,7 +201,7 @@ namespace aRibeiro {
     }
 
     void BinaryWriter::writeStringMapVec3(const aligned_map<std::string,vec3> &v){
-        writeUInt32(v.size());
+        writeUInt32((uint32_t)v.size());
         //typename 
         aligned_map<std::string, vec3>::const_iterator it;
         for (it = v.begin(); it != v.end(); it++) {
@@ -211,7 +211,7 @@ namespace aRibeiro {
     }
 
     void BinaryWriter::writeStringMapVec4(const aligned_map<std::string,vec4> &v){
-        writeUInt32(v.size());
+        writeUInt32((uint32_t)v.size());
         //typename 
         aligned_map<std::string, vec4>::const_iterator it;
         for (it = v.begin(); it != v.end(); it++) {

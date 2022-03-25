@@ -15,7 +15,7 @@ namespace aRibeiro {
     void BinaryReader::readFromBuffer(const uint8_t* data, size_t size, bool compressed) {
         if (compressed){
             zlibWrapper::ZLIB zlib;
-            zlib.uncompress(data, size);
+            zlib.uncompress(data, (uint32_t)size);
             buffer = zlib.zlibOutput;
         } else {
             buffer.resize(size);
@@ -44,7 +44,7 @@ namespace aRibeiro {
             fseek(in, 0, SEEK_END);
             buffer.resize(ftell(in));
             fseek(in, 0, SEEK_SET);
-            int readed_size = fread(&buffer[0], sizeof(uint8_t), buffer.size(), in);
+            int readed_size = (int)fread(&buffer[0], sizeof(uint8_t), buffer.size(), in);
             
             fclose(in);
         }
@@ -53,7 +53,7 @@ namespace aRibeiro {
 
         if (compressed){
             zlibWrapper::ZLIB zlib;
-            zlib.uncompress(&buffer[0], buffer.size());
+            zlib.uncompress(&buffer[0], (uint32_t)buffer.size());
             buffer = zlib.zlibOutput;
         }
 
