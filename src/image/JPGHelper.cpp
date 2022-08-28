@@ -263,7 +263,7 @@ namespace aRibeiro {
         jpeg_create_decompress(&cinfo);
         
         /* Step 2: specify data source (eg, a file) */
-        jpeg_mem_src(&cinfo, (const unsigned char*)input_buffer, input_buffer_size);
+        jpeg_mem_src(&cinfo, (unsigned char*)input_buffer, input_buffer_size);
         
         /* Step 3: read file parameters with jpeg_read_header() */
         
